@@ -13,7 +13,7 @@ py_available()
 
 #Create a new conda environment to install your packages to 
 my_env <- "r-reticulate-gary-env"
-#conda_create(my_env)
+conda_create(my_env)
 
 #Install packages into anaconda environment new environment
 #py_install("pandas",envname = my_env)
@@ -36,7 +36,6 @@ numpy <- import("numpy")
 pandas <- import("pandas")
 
 # Import libraries for ski-kit learn
-
 sl_model_selection <- import("sklearn.model_selection")
 skl <- import("sklearn")
 skl_ensemble <- import("sklearn.ensemble")
@@ -89,7 +88,6 @@ py_air$head() # Call the head on the Python object
 py_air$dtypes
 py_air$nunique
 py_air$describe()
-
 py_list_attributes(py_air)
 py_len(py_air)
 
@@ -116,6 +114,7 @@ model_intercept <- model$intercept_
 model_coef <- model$coef_
 # Create prediction vs actual fit data frame
 model_predict <- model$predict(py_X_test)
+#Create a data frame with the predictions
 model_results <- data.frame(Predicted_Temp=model_predict, 
                             py_to_r(py_Y_test),
                             py_to_r(py_Y_test) - model_predict)
@@ -127,7 +126,6 @@ py_mod_results <- r_to_py(model_results)
 py_mod_results$dtypes
 
 #Create line plot in seaborn
-
 sns$lineplot(data=py_mod_results, x="Actual", y="Predicted")
 plt$show()
 
@@ -148,7 +146,7 @@ data.table::fwrite(air, "temperature_pred.csv")
 #summary_stats <- source_python("sns_plot.py")
 
 # Here we have two plots we will now use to pass python objects through to
-py_run_file("sns_plot.py") #This has a call to pick up the data and a function 
+py_run_file("Scripts/sns_plot.py") #This has a call to pick up the data and a function 
 # to create a pair plot
 plt$show()
 
