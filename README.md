@@ -36,11 +36,16 @@ This section looks at visualising:
 
 
 The visual outputs are included hereunder:
+<p></p>
 ![Seaborn Plot](Images/seaborn.png)
 Seaborn Plot
+<p></p>
 ![Seaborn Pair Plot](Images/snspairplot.png)
 Seaborn Pairplot
+<p></p>
 ![Seaborn Pair Plot](Images/correlation_plot.png)
+Correlation Plot
+<p></p>
 
 
 
