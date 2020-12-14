@@ -8,6 +8,10 @@
 
 Andreas gives an overview of Scikit Learn ML library and its powerful uses.
 
+## Reticulate with R examples - Gary Hutson
+
+Next, the following sections take you through the content of the webinar:
+
 ## Setting up the reticulate environment and conversion between environments
 
 The next tutorial focusses on how to use R's reticulate package to work with Python objects in R. The focus of the tutorial is to:
