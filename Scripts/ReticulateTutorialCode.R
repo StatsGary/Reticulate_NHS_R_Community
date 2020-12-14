@@ -16,11 +16,11 @@ my_env <- "r-reticulate-gary-env"
 conda_create(my_env)
 
 #Install packages into anaconda environment new environment
-#py_install("pandas",envname = my_env)
-#py_install("numpy", envname = my_env)
-#py_install("seaborn", envname = my_env)
-#py_install("scikit-learn",envname = my_env)
-#py_install("matplotlib", envname = my_env)
+py_install("pandas",envname = my_env)
+py_install("numpy", envname = my_env)
+py_install("seaborn", envname = my_env)
+py_install("scikit-learn",envname = my_env)
+py_install("matplotlib", envname = my_env)
 
 #Specifiy which environment you want to use
 
@@ -36,7 +36,6 @@ numpy <- import("numpy")
 pandas <- import("pandas")
 
 # Import libraries for ski-kit learn
-
 sl_model_selection <- import("sklearn.model_selection")
 skl <- import("sklearn")
 skl_ensemble <- import("sklearn.ensemble")
@@ -69,29 +68,27 @@ make_blobs_of_blobs <- function (number_of_blobs, df){
   do.call("rbind", replicate(n, df, simplify = FALSE))
 }
 
-air <- airquality
-air <- make_blobs_of_blobs(50, air)
-#Exclude month and day, as we are going to pass to Sk Learn to do a linear model on
-air %<>% 
-  select(everything(), -c(Month, Day)) %>% 
-  drop_na()
+ttbs <- read_csv("Data/TTBS_Prediction.csv")
+ttbs %<>% 
+  sample_frac(size=0.2)
+
+
 
 # X and Y predictions
-X <- air[,1:3]
-Y <- data.frame(Temp=air[,4])
+X <- ttbs[,1:3]
+Y <- data.frame(ttbs[,4])
 
 # Convert the data frame to a python data type - this conversion will result in a Python dictionary or Pandas data frame
 
-py_air <- r_to_py(air)
+py_ttbs <- r_to_py(ttbs)
 py_X <- r_to_py(X)
 py_Y <- r_to_py(Y)
-py_air$head() # Call the head on the Python object
-py_air$dtypes
-py_air$nunique
-py_air$describe()
-
-py_list_attributes(py_air)
-py_len(py_air)
+py_ttbs$head() # Call the head on the Python object
+py_ttbs$dtypes
+py_ttbs$nunique
+py_ttbs$describe()
+py_list_attributes(py_ttbs)
+py_len(py_ttbs)
 
 # Now we have the data in a python format we can use the model selection library to 
 
@@ -109,13 +106,14 @@ py_Y_test <- r_to_py(split[[3]])
 sk_lm_model <- skl_lm$LinearRegression()
 model <- sk_lm_model$fit(py_X_train, py_Y_train)
 r_squared <- model$score(py_X_test, py_Y_test)
-
-
-
 model_intercept <- model$intercept_
 model_coef <- model$coef_
+print(r_squared)
+print(model_intercept)
+print(model_coef)
 # Create prediction vs actual fit data frame
 model_predict <- model$predict(py_X_test)
+#Create a data frame with the predictions
 model_results <- data.frame(Predicted_Temp=model_predict, 
                             py_to_r(py_Y_test),
                             py_to_r(py_Y_test) - model_predict)
@@ -127,7 +125,6 @@ py_mod_results <- r_to_py(model_results)
 py_mod_results$dtypes
 
 #Create line plot in seaborn
-
 sns$lineplot(data=py_mod_results, x="Actual", y="Predicted")
 plt$show()
 
@@ -142,10 +139,13 @@ plotly::ggplotly(plot)
 
 # Export air data frame to csv and then we will run a custom python script stored in 
 # a file to pick up where the csv is stored and this will run a snspairplot
-
-data.table::fwrite(air, "temperature_pred.csv")
+ttbs %<>% 
+  dplyr::select(-EDPresentationInLast30Days)
+data.table::fwrite(ttbs, "Data/ttbs.csv")
 #What we will do now is run the python script which looks at the 
 #summary_stats <- source_python("sns_plot.py")
+
+
 
 # Here we have two plots we will now use to pass python objects through to
 py_run_file("sns_plot.py") #This has a call to pick up the data and a function 
@@ -153,8 +153,8 @@ py_run_file("sns_plot.py") #This has a call to pick up the data and a function
 plt$show()
 
 # Finally we will create a correlation matrix in matplot lib 
-corr <- py_air$corr()
+corr <- py_ttbs$corr()
 sns$heatmap(corr, annot=TRUE, cmap="YlGnBu")
 #plt$show()
-plt$savefig("correlation_plot.png")
+plt$savefig("Images/correlation_plot.png")
 
