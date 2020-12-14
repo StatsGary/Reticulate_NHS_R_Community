@@ -44,7 +44,9 @@ The visual outputs are included hereunder:
 ![Seaborn Pair Plot](Images/correlation_plot.png)
 
 
+# Conclusion
 
+There is much more that can be done with reticulate, such as building Tensorflow and Keras interfaces, if you are inclined, but it really opens up the tools that you can use for analytical tasks. 
 
 
 
