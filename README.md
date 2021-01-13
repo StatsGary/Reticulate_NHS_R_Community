@@ -1,7 +1,3 @@
----
-bibliography: references.bib
----
-
 # NHS R Community Reticulate Webinar - a happy union 
 
 <p></p>
