@@ -22,7 +22,7 @@ Package `reticulate` is a game-changer, because the `R` user like myself gains a
 
 The idea is to use the `Python` elements that are clearly superior to the `R` counterparts, without necessarily having to master `Python`. Personally, I needed access to a much more advanced Machine Learning interface than the ones that are available in `R`, and so I spent a few weeks building a pipeline with `Python`'s `Scikit-learn`. I still do not know `Python` very well. But I do know `Scikit-learn` now. The result? Immensely faster processing times, with results readily available for reporting and visualization with `R`'s `shiny` [@R-shiny]  and `golem` [@R-golem].
 
-In my slide pack I give an overview of `Scikit-learn`. I then compare it with `R`'s well-known Machine Learning libraries `tidymodels` [@R-tidymodels]  and `mlr3` [@R-mlr3]. Finally, I provide a few practical tips for attacking Machine Learning problems with these three libraries. 
+In my slide pack I give an overview of `Scikit-learn`. I then compare it with `R`'s well-known Machine Learning libraries `tidymodels` [@R-tidymodels]  and `mlr3` [@R-mlr3]. Finally, I provide a few practical tips for attacking Machine Learning problems with these three libraries.
 
 ## Reticulate with R examples - Gary Hutson
 
