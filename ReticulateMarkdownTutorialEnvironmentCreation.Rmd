@@ -1,7 +1,7 @@
 ---
 title: 'Reticulate: R and Python - a happy union'
-author: "Gary Hutson"
-date: "06/11/2020"
+author: "Gary Hutson - Head of Advanced Analytics - AGEM"
+date: "20/01/2021"
 output:
   html_document:
     theme: cerulean
@@ -21,7 +21,7 @@ library(data.table)
 
 [![Image name](Images/AGEM_NHSR.png){width=50%}](https://www.ardengemcsu.nhs.uk/)
 
-# Coniguring the Python Setup 
+# Configuring the Python Setup 
 
 The first thing you will need to do is configure the Python setup for reticulate. This comes packaged in a miniconda format with R and you will need to make sure that you use it with the correct version of Anaconda. When you install.packages("reticulate") it creates a miniconda installation for you.
 
